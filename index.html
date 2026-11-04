@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17112c">
+<meta name="description" content="LumaTalk - คุยสนุก พบเพื่อนใหม่">
+<title>LumaTalk</title>
+<style>
+:root{--bg:#100d1d;--panel:#1b1630;--panel2:#251d3d;--pink:#ff5ca8;--purple:#8b6cff;--text:#fff;--muted:#aaa2c0;--line:#352b50}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#1b1234,#0d0b18 55%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+button,input{font:inherit}.app{max-width:520px;margin:auto;min-height:100vh;padding:18px 16px 100px}
+header{display:flex;align-items:center;justify-content:space-between;margin:4px 0 20px}.brand{font-size:25px;font-weight:900;letter-spacing:.3px;background:linear-gradient(90deg,#ff73b7,#a88cff);color:transparent;background-clip:text}.wallet{background:#2b2146;border:1px solid #493766;border-radius:22px;padding:9px 13px;font-size:13px}
+h1{font-size:24px;margin:10px 0 5px}h2{font-size:18px;margin:22px 0 12px}.muted{color:var(--muted);font-size:13px}.banner{background:linear-gradient(110deg,#7847d9,#d64e9b);border-radius:22px;padding:20px;margin:15px 0 20px;box-shadow:0 12px 35px #0005}.banner strong{font-size:21px;display:block}.banner p{font-size:13px;margin:6px 0 13px;color:#f5eaff}.pill{border:0;border-radius:20px;padding:9px 15px;background:white;color:#512c9c;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.room,.chat,.gift,.profilebox,.coinbox{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}.room{min-height:142px;position:relative;overflow:hidden}.room .emoji{font-size:29px}.room strong{display:block;margin:8px 0 3px}.live{font-size:11px;color:#ff8bbd}.join{margin-top:10px;border:0;border-radius:12px;background:linear-gradient(90deg,var(--purple),var(--pink));color:white;padding:8px 13px;font-weight:700}
+.tabs{position:fixed;bottom:0;left:0;right:0;max-width:520px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);background:#171228f5;border-top:1px solid var(--line);padding:10px 4px calc(10px + env(safe-area-inset-bottom));backdrop-filter:blur(12px);z-index:5}.tab{background:none;border:0;color:#928aa9;font-size:11px;padding:4px 0}.tab span{display:block;font-size:21px;margin-bottom:3px}.tab.active{color:#ff78b9;font-weight:800}
+.page{display:none}.page.active{display:block}.list{display:grid;gap:10px}.chat{display:flex;align-items:center;gap:12px}.avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#805bdb,#e65b9f);font-size:22px;flex-shrink:0}.chat small{display:block;color:var(--muted);margin-top:3px}.chat .right{margin-left:auto;color:var(--muted);font-size:11px}
+.gifts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.gift{text-align:center}.gift .emoji{font-size:34px}.gift button{margin-top:8px;background:#35254f;color:white;border:1px solid #5b437d;border-radius:12px;padding:7px 10px;width:100%}
+.balance{font-size:32px;font-weight:900;color:#ffd36e;margin:7px 0}.primary{border:0;border-radius:14px;padding:12px 16px;background:linear-gradient(90deg,var(--purple),var(--pink));color:white;font-weight:800;width:100%;margin-top:12px}
+input{width:100%;border:1px solid var(--line);border-radius:13px;background:#120e20;color:white;padding:12px;margin-top:8px}.messages{height:48vh;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:10px 0}.bubble{max-width:82%;background:#302448;padding:10px 13px;border-radius:15px;align-self:flex-start}.bubble.me{align-self:flex-end;background:#7048b8}.sendrow{display:flex;gap:8px}.sendrow input{margin:0}.sendrow button{width:58px;border:0;border-radius:13px;background:var(--pink);color:white}
+.notice{font-size:12px;color:#b9afcf;line-height:1.5;margin-top:18px}.tag{display:inline-block;border-radius:20px;background:#35284f;color:#d9c9ff;padding:5px 9px;font-size:11px}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="brand">✦ LumaTalk</div><div class="wallet">🪙 <b id="coinTop">500</b></div></header>
+
+<section id="home" class="page active">
+ <div class="muted">ยินดีต้อนรับ 👋</div><h1>คืนนี้คุยกับใครดี?</h1>
+ <div class="banner"><strong>✨ พบเพื่อนใหม่ทุกวัน</strong><p>เข้าห้องเสียง พูดคุย และแบ่งปันช่วงเวลาดี ๆ</p><button class="pill" onclick="showPage('voice')">ค้นหาห้องเสียง</button></div>
+ <h2>🔥 ห้องเสียงแนะนำ</h2>
+ <div class="grid">
+  <div class="room"><div class="emoji">🎵</div><strong>ห้องเพลงเพราะ</strong><div class="live">🔴 LIVE · 18 คน</div><button class="join" onclick="joinRoom('ห้องเพลงเพราะ')">เข้าร่วมห้อง</button></div>
+  <div class="room"><div class="emoji">☕</div><strong>คุยเล่นยามค่ำ</strong><div class="live">🔴 LIVE · 12 คน</div><button class="join" onclick="joinRoom('คุยเล่นยามค่ำ')">เข้าร่วมห้อง</button></div>
+  <div class="room"><div class="emoji">🎮</div><strong>สายเกมเมอร์</strong><div class="live">🔴 LIVE · 9 คน</div><button class="join" onclick="joinRoom('สายเกมเมอร์')">เข้าร่วมห้อง</button></div>
+  <div class="room"><div class="emoji">💜</div><strong>เพื่อนใหม่</strong><div class="live">🔴 LIVE · 25 คน</div><button class="join" onclick="joinRoom('เพื่อนใหม่')">เข้าร่วมห้อง</button></div>
+ </div>
+</section>
+
+<section id="voice" class="page">
+ <h1>🎙️ ห้องเสียง</h1><p class="muted">เลือกห้องที่สนใจเพื่อทดลองเข้าร่วม</p>
+ <div class="list">
+  <div class="room"><span class="tag">กำลังถ่ายทอด</span><div class="emoji">🎤</div><strong>ห้องเพลงเพราะ</strong><div class="muted">เจ้าของห้อง: มิน · ผู้ฟัง 18 คน</div><button class="join" onclick="joinRoom('ห้องเพลงเพราะ')">เข้าร่วมห้อง</button></div>
+  <div class="room"><span class="tag">กำลังถ่ายทอด</span><div class="emoji">🌙</div><strong>คุยเล่นยามค่ำ</strong><div class="muted">เจ้าของห้อง: เจ · ผู้ฟัง 12 คน</div><button class="join" onclick="joinRoom('คุยเล่นยามค่ำ')">เข้าร่วมห้อง</button></div>
+ </div>
+ <div id="roomStatus" class="profilebox" style="margin-top:14px">ยังไม่ได้เข้าร่วมห้อง</div>
+ <p class="notice">ต้นแบบนี้จำลองการเข้าห้องเท่านั้น ยังไม่เชื่อมเสียงสดจริง เราจะเพิ่มระบบไมโครโฟนออนไลน์ในขั้นถัดไป</p>
+</section>
+
+<section id="chat" class="page">
+ <h1>💬 แชท</h1><p class="muted">พื้นที่ทดลองส่งข้อความในเครื่องนี้</p>
+ <div id="messages" class="messages"><div class="bubble">สวัสดี! ยินดีต้อนรับสู่ LumaTalk 💜</div></div>
+ <div class="sendrow"><input id="msgInput" placeholder="พิมพ์ข้อความ..." onkeydown="if(event.key==='Enter')sendMsg()"><button onclick="sendMsg()">ส่ง</button></div>
+</section>
+
+<section id="gift" class="page">
+ <h1>🎁 ของขวัญ</h1><p class="muted">เลือกของขวัญเพื่อทดลองส่ง</p>
+ <div class="gifts">
+  <div class="gift"><div class="emoji">🌹</div><b>กุหลาบ</b><div class="muted">10 เหรียญ</div><button onclick="sendGift('กุหลาบ',10)">ส่ง</button></div>
+  <div class="gift"><div class="emoji">💖</div><b>หัวใจ</b><div class="muted">30 เหรียญ</div><button onclick="sendGift('หัวใจ',30)">ส่ง</button></div>
+  <div class="gift"><div class="emoji">🎂</div><b>เค้ก</b><div class="muted">50 เหรียญ</div><button onclick="sendGift('เค้ก',50)">ส่ง</button></div>
+  <div class="gift"><div class="emoji">🧸</div><b>ตุ๊กตา</b><div class="muted">100 เหรียญ</div><button onclick="sendGift('ตุ๊กตา',100)">ส่ง</button></div>
+  <div class="gift"><div class="emoji">💎</div><b>เพชร</b><div class="muted">200 เหรียญ</div><button onclick="sendGift('เพชร',200)">ส่ง</button></div>
+  <div class="gift"><div class="emoji">🚀</div><b>จรวด</b><div class="muted">300 เหรียญ</div><button onclick="sendGift('จรวด',300)">ส่ง</button></div>
+ </div><p id="giftStatus" class="notice">เหรียญเริ่มต้นเป็นเหรียญทดลอง ไม่ใช่เงินจริง</p>
+</section>
+
+<section id="profile" class="page">
+ <h1>👤 โปรไฟล์</h1>
+ <div class="profilebox" style="text-align:center;padding:25px"><div class="avatar" style="width:82px;height:82px;margin:auto;font-size:38px">😎</div><h2 style="margin-bottom:4px">ผู้ใช้ Luma</h2><span class="tag">เลเวล 1 · สมาชิกใหม่</span><p class="muted">ยินดีที่ได้รู้จักเพื่อนใหม่!</p></div>
+ <h2>กระเป๋าเหรียญ</h2><div class="coinbox"><div class="muted">ยอดเหรียญทดลอง</div><div class="balance">🪙 <span id="coinProfile">500</span></div><div class="muted">ระบบเติมเงินจริงยังไม่เปิดใช้งาน</div></div>
+ <button class="primary" onclick="alert('ระบบบัญชีสมาชิกจะเพิ่มในขั้นต่อไป')">ตั้งค่าโปรไฟล์</button>
+</section>
+</div>
+<nav class="tabs">
+ <button class="tab active" data-page="home" onclick="showPage('home')"><span>🏠</span>หน้าแรก</button>
+ <button class="tab" data-page="voice" onclick="showPage('voice')"><span>🎙️</span>ห้องเสียง</button>
+ <button class="tab" data-page="chat" onclick="showPage('chat')"><span>💬</span>แชท</button>
+ <button class="tab" data-page="gift" onclick="showPage('gift')"><span>🎁</span>ของขวัญ</button>
+ <button class="tab" data-page="profile" onclick="showPage('profile')"><span>👤</span>โปรไฟล์</button>
+</nav>
+<script>
+let coins=500;
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.page===id));window.scrollTo(0,0)}
+function updateCoins(){document.getElementById('coinTop').textContent=coins;document.getElementById('coinProfile').textContent=coins}
+function joinRoom(name){showPage('voice');document.getElementById('roomStatus').innerHTML='✅ คุณเข้าร่วมห้อง <b>'+name+'</b><br><span class="muted">โหมดทดลอง — ยังไม่มีเสียงสดออนไลน์</span>'}
+function sendMsg(){let input=document.getElementById('msgInput'),v=input.value.trim();if(!v)return;let b=document.createElement('div');b.className='bubble me';b.textContent=v;document.getElementById('messages').appendChild(b);input.value='';document.getElementById('messages').scrollTop=99999}
+function sendGift(name,cost){if(coins<cost){document.getElementById('giftStatus').textContent='เหรียญไม่เพียงพอ';return}coins-=cost;updateCoins();document.getElementById('giftStatus').textContent='ส่ง'+name+'สำเร็จ! ใช้ '+cost+' เหรียญ (ทดลอง)'}
+updateCoins();
+</script>
+</body></html>
