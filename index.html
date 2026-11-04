@@ -118,8 +118,8 @@ body.authenticated .auth-screen{display:none}
 <script>
 /* ใส่ Project URL และ publishable/anon key จาก Supabase Dashboard.
    ห้ามใส่ service_role key หรือ secret key ในเว็บไซต์เด็ดขาด. */
-const SUPABASE_URL = "ใส่_SUPABASE_PROJECT_URL_ตรงนี้";
-const SUPABASE_ANON_KEY = "ใส่_SUPABASE_ANON_KEY_ตรงนี้";
+const SUPABASE_URL = https://jfuuuinpvmupkxvqdfzi.supabase.co;
+const SUPABASE_ANON_KEY = sb_publishable_BkV1-esNOps-JDT0RaIJ0g_B4tcfBaH;
 let supabaseClient=null,authMode="login",coins=500;
 function setAuthMessage(message,isError=false){const el=document.getElementById("authMessage");el.textContent=message;el.style.color=isError?"#ff9aab":"#ffd78b"}
 function setAuthMode(mode){
